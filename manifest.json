@@ -1,0 +1,14 @@
+{
+  "name": "Agenda AD Brás Barra Funda 2026",
+  "short_name": "Agenda AD Brás BF",
+  "description": "Agenda AD Brás Barra Funda 2026",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f7f7",
+  "theme_color": "#9f1d20",
+  "icons": [
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
