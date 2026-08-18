@@ -99,6 +99,13 @@ installBtn.addEventListener("click", async () => {
 window.addEventListener("appinstalled", () => {
     deferredPrompt = null;
     installBtn.hidden = true;
-});
+});// Registra o Service Worker
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js")
+            .then(() => console.log("Service Worker registrado com sucesso"))
+            .catch(error => console.error("Erro ao registrar Service Worker:", error));
+    });
+}
 </script>
 </body></html>
