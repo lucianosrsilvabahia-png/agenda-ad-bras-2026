@@ -57,8 +57,7 @@ background:#FF0000;
 let deferredPrompt;
 const installBtn = document.getElementById("installBtn");
 
-// Esconde o botão por padrão
-installBtn.hidden = false;
+installBtn.hidden = true;
 
 // Verifica se o aplicativo já está instalado
 function isAppInstalled() {
@@ -66,17 +65,12 @@ function isAppInstalled() {
            window.navigator.standalone === true;
 }
 
-// Se já estiver instalado, mantém o botão escondido
-if (isAppInstalled()) {
-    installBtn.hidden = true;
-}
-
 // Quando o navegador disponibilizar a instalação
 window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
+
     deferredPrompt = e;
 
-    // Só mostra se ainda não estiver instalado
     if (!isAppInstalled()) {
         installBtn.hidden = false;
     }
@@ -84,7 +78,11 @@ window.addEventListener("beforeinstallprompt", (e) => {
 
 // Clique no botão instalar
 installBtn.addEventListener("click", async () => {
-    if (!deferredPrompt) return;
+
+    if (!deferredPrompt) {
+        alert("A instalação ainda não está disponível. Aguarde alguns segundos e tente novamente.");
+        return;
+    }
 
     deferredPrompt.prompt();
 
@@ -92,11 +90,12 @@ installBtn.addEventListener("click", async () => {
 
     deferredPrompt = null;
 
-    // Se instalou ou dispensou, esconde o botão
-    installBtn.hidden = true;
+    if (outcome === "accepted" || outcome === "dismissed") {
+        installBtn.hidden = true;
+    }
 });
 
-// Quando a instalação for concluída
+// Quando o aplicativo for instalado
 window.addEventListener("appinstalled", () => {
     deferredPrompt = null;
     installBtn.hidden = true;
